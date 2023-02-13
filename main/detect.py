@@ -54,13 +54,4 @@ if __name__ == "__main__":
     yolo_model = torch.hub.load('ultralytics/yolov5', 'custom', path='best.pt')
     model=YOLO(fontScale,font,color,thickness)
     model.detect(yolo_model)
-    
-
-
-        
-        
-        
-        
-         
-    
-
+ 
