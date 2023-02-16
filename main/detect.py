@@ -27,6 +27,8 @@ class YOLO:
         self.font = font
         self.color = color
         self.thickness = thickness
+        self.cap = cv2.VideoCapture(0)
+        self.yolo_model = torch.hub.load('ultralytics/yolov5', 'custom', path='best.pt')
     def bounding_box(self,image,xmax,ymax,xmin,ymin,clas):
         org = (int(xmin),int(ymin))
         c1 = (int(xmin),int(ymin))
@@ -35,12 +37,11 @@ class YOLO:
         cv2.rectangle(image, c1, (int(((xmax+xmin)/2)+xmax-xmin),int(((ymax+ymin)/2)+ymax-ymin)),color,4)
         image = cv2.putText(image,str(u), org, self.font, self.fontScale, self.color, self.thickness, cv2.LINE_AA)
         cv2.imshow('PubWebcam',image)
-    def detect(self,yolo_model):
-        cap = cv2.VideoCapture(0)
-        while cap.isOpened():
+    def detect(self):
+        while self.cap.isOpened():
             success, frame = cap.read()
             image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            result = yolo_model(image)
+            result = self.yolo_model(image)
             for (xmin, ymin, xmax,   ymax,  confidence,  clas) in result.xyxy[0].tolist():
                 self.bounding_box(image,xmax,ymax,xmin,ymin,clas)
                 if cv2.waitKey(1)==ord('q'):
@@ -51,7 +52,15 @@ if __name__ == "__main__":
     font = cv2.FONT_HERSHEY_SIMPLEX
     thickness = 1
     color = (255, 0, 0)
-    yolo_model = torch.hub.load('ultralytics/yolov5', 'custom', path='best.pt')
     model=YOLO(fontScale,font,color,thickness)
-    model.detect(yolo_model)
- 
+    model.detect()
+    
+
+
+        
+        
+        
+        
+         
+    
+
