@@ -1,6 +1,7 @@
 import torch
 import cv2
 import serial
+# set up RS232 protocon
 class Serial_Port:
     def __init__(self,port,baudrate,parity,stopbits,bytesize,timeout):
         self.port = port
@@ -21,6 +22,7 @@ class Serial_Port:
         data1 = data.decode()
         data2 = data1.rstrip()
         return data2 
+# Define yolo class
 class YOLO:
     def __init__(self,fontScale,font,color,thickness):
         self.fontScale = fontScale
