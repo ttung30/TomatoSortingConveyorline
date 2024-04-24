@@ -27,10 +27,10 @@ window.configure(bg = "#FFFFFF")
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)  
+#Define function.
 def on_off():
     global video_capture 
     video_capture=cv2.VideoCapture(0)
-    #write uart tat he thong
 def start_process():
     global stop
     global start
@@ -40,20 +40,19 @@ def start_process():
 def yolo():
     textpush = ''
     color = ''
-    label = ['ca chua','keo']
+    label = ['đat chuan','bi benh']
     _, frame = video_capture.read()
     frame = cv2.flip(frame, 1)
     cv2image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGBA)
     result = yolo_model(cv2image)
-    g=result.xyxy[0].tolist()
-    if g!= [] and stop == 0:
-        index = int(g[0][5])
+    classs=result.xyxy[0].tolist()
+    if classs!= [] and stop == 0:
+        index = int(classs[0][5])
         textpush='Ca chua loai: '+label[index]
         color =(0, 0, 255)
     if stop == 1:
         textpush = ' He thong tam dung hoat dong!'
         color = (255, 0, 0)
-    
     cv2.putText(cv2image, textpush, (50, 50), cv2.FONT_HERSHEY_SIMPLEX , 1, color, 2)
     img = PIL.Image.fromarray(cv2image)
     imgtk = PIL.ImageTk.PhotoImage(image=img)
@@ -68,10 +67,9 @@ def stop_dectect():
     global start
     stop=1
     start =0
-    #write uart dung phan loai 
+ 
 def stop_process():
     messagebox.showinfo('Shutdown', "He thon se dung sau 3s")
-    #write uart  he thong ngung hoat dong
     time.sleep(3)
     window.destroy()
 canvas = Canvas(
@@ -83,7 +81,7 @@ canvas = Canvas(
     highlightthickness = 0,
     relief = "ridge"
 )
-
+# GUI 's object configuration
 canvas.place(x = 0, y = 0)
 image_image_1 = PhotoImage(
     file=relative_to_assets("image_1.png"))
@@ -125,7 +123,6 @@ combo.place(
     y=228.0,
     width=100,
     height=56
- 
 )
 labelhienthi = Label(window,text='Not Select',font='Times 30')
 labelhienthi.place(
@@ -148,7 +145,6 @@ button_2.place(
     width=176.0,
     height=56.0
 )
-
 button_image_3 = PhotoImage(
     file=relative_to_assets("button_3.png"))
 button_3 = Button(
