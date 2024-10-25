@@ -1,18 +1,16 @@
 import PIL
-from cProfile import label
-from turtle import onclick
-import subprocess
-from PIL import Image, ImageTk
 from tkinter import messagebox
 import time
 from tkinter.ttk import *
 from tkinter import *
 import tkinter as tk
 import cv2
-from threading import Thread, Lock
+from threading import Thread
 from pathlib import Path
 import torch
 
+
+# TO-DO sua tkinter thanh gradio
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path("./assets5")
 
@@ -192,7 +190,7 @@ button_5.place(
     width=69.0,
     height=68.0
 )
-
+# To-Do: rewrite by hugging face
 if __name__ =="__main__":
     yolo_model = torch.hub.load('ultralytics/yolov5', 'custom', path='best.pt')
     t1=Thread(target=window.mainloop())

@@ -1,7 +1,8 @@
 import torch
 import cv2
 import serial
-# set up RS232 protocon
+
+
 class Serial_Port:
     def __init__(self,port,baudrate,parity,stopbits,bytesize,timeout):
         self.port = port
@@ -19,10 +20,11 @@ class Serial_Port:
         self.ser.write(str.encode('1'))
     def recieve_data(self):
         data = self.ser.readline()
-        data1 = data.decode()
+        data1 = data.dsecode()
         data2 = data1.rstrip()
         return data2 
-# Define yolo class
+    
+# TO-DO: rewrite with hugging face
 class YOLO:
     def __init__(self,fontScale,font,color,thickness):
         self.fontScale = fontScale
@@ -40,6 +42,8 @@ class YOLO:
         image = cv2.putText(image,str(u), org, self.font, self.fontScale, self.color, self.thickness, cv2.LINE_AA)
         cv2.imshow('PubWebcam',image)
     def detect(self):
+        """_summary_
+        """
         while self.cap.isOpened():
             success, frame = cap.read()
             image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
